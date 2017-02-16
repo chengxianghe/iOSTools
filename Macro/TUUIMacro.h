@@ -26,15 +26,29 @@
 #define kScreenOneScale (1.0 / [UIScreen mainScreen].scale)
 #endif
 
-#ifndef kRGBA
-#define kRGBA(r,g,b,a)           \
-[UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
+/* UIColor创建 ===============================================================================*/
+#pragma mark - UIColor
+
+#ifndef kColorFromRGBA
+#define kColorFromRGBA(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
 #endif
 
-#ifndef kLoad_Nib
-#define kLoad_Nib(name)  [[[NSBundle mainBundle] loadNibNamed:name owner:nil options:nil] lastObject]
+#ifndef kColorFromRGB
+#define kColorFromRGB(r,g,b) kColorFromRGBA((r),(g),(b),1)
 #endif
 
+#ifndef kColorFromHexA
+#define kColorFromHexA(hex,a) \
+[UIColor colorWithRed:((float)(((hex) & 0xFF0000) >> 16))/255.0 \
+green:((float)(((hex) & 0xFF00) >> 8))/255.0 \
+blue:((float)((hex) & 0xFF))/255.0 alpha:a]
+#endif
+
+#ifndef kColorFromHex
+#define kColorFromHex(hex) kColorFromHexA((hex),1)
+#endif
+
+/* 屏幕尺寸判断 ===============================================================================*/
 /** 判断是否为3.5inch 320*480 640*960 */
 #ifndef kIs_Inch3_5
 #define kIs_Inch3_5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO)
@@ -52,11 +66,6 @@
 /** 判断是否为5.5inch 414*1104 1242*2208 */
 #ifndef kIs_Inch5_5
 #define kIs_Inch5_5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
-#endif
-
-///主题色
-#ifndef kAppRedColor
-#define kAppRedColor kRGBA(250,80,60,1.0)
 #endif
 
 #endif /* TUUIMacro_h */
