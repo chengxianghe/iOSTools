@@ -159,6 +159,11 @@ TU_EXTERN_C_BEGIN
     #endif
 #endif
 
+/* 系统版本 ===============================================================================*/
+#ifndef kSYSTEM_VERSION
+#define kSYSTEM_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
+#endif
+
 // is ios system version == ?
 #ifndef SYSTEM_VERSION_EQUAL_TO
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
@@ -184,8 +189,26 @@ TU_EXTERN_C_BEGIN
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 #endif
 
-// debug log
-#define kDebugLog(s, ...) NSLog(@"%s(%d): %@", __FUNCTION__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+/* 调试信息 ===============================================================================*/
+#pragma mark - Debug
+
+#ifdef DEBUG
+
+#define NSLog(fmt, ...)        NSLog((@"%s(%d) " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#define NSLog_INFO(fmt, ...)   NSLog(@"[INFO]:%s(%d) " fmt, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#define NSLog_DEBUG(fmt, ...)  NSLog(@"[DEBUG]:%s(%d) " fmt, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#define NSLog_WARING(fmt, ...) NSLog(@"[WARING]:%s(%d) " fmt, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#define NSLog_ERROR(fmt, ...)  NSLog(@"[ERROR]:%s(%d) " fmt, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+
+#else
+
+#define NSLog(fmt, ...)
+#define NSLog_INFO(fmt, ...)
+#define NSLog_DEBUG(fmt, ...)
+#define NSLog_WARING(fmt, ...)
+#define NSLog_ERROR(fmt, ...)
+
+#endif
 
 // local
 #define kLocalizedString(_S_, _T_, ...) NSLocalizedStringFromTable([NSString stringWithFormat:(_S_), ##__VA_ARGS__],[NSString stringWithFormat:(_T_), ##__VA_ARGS__],nil)
@@ -198,6 +221,22 @@ TU_EXTERN_C_BEGIN
 #ifndef kLoad_Nib
 #define kLoad_Nib(name)  [[[NSBundle mainBundle] loadNibNamed:name owner:nil options:nil] lastObject]
 #endif
+
+/* 路径信息 ===============================================================================*/
+#pragma mark - Path Info
+
+#ifndef kPATH_OF_APP_HOME
+#define kPATH_OF_APP_HOME   NSHomeDirectory()
+#endif
+
+#ifndef kPATH_OF_TEMP
+#define kPATH_OF_TEMP       NSTemporaryDirectory()
+#endif
+
+#ifndef kPATH_OF_DOCUMENT
+#define kPATH_OF_DOCUMENT   NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject
+#endif
+
 
 TU_EXTERN_C_END
 
