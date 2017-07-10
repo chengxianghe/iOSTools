@@ -6,6 +6,7 @@
 
 #import <Foundation/Foundation.h>
 #import "NSDate+Utilities.h"
+#import "NSDate+SYNCPropertyMapper.h"
 
 #define D_MINUTE	60
 #define D_HOUR		3600
@@ -117,10 +118,20 @@
 /** custom time */
 - (NSString *)customTimeDescription;
 
-- (NSString *)musicTimeDescription;
+- (NSString *)timeAgoDescription;
 
 /** yyyy-MM-dd HH:mm:ss */
 - (NSString *)standardTimeDescription;
+
+/** yyyy/MM/dd */
+- (NSString *)birthdayTimeDescription;
+
+/** MM/dd */
+- (NSString *)monthDayTimeDescription;
+
+- (NSString *)timeDescriptionWithFormatter:(NSString *)formatter;
+
+- (NSString *)formattedTimeDescription;
 
 /** 转成本地时间 */
 + (NSDate *)changeDateToLocalDate:(NSDate *)date;

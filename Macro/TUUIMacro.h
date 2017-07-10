@@ -68,4 +68,8 @@ blue:((float)((hex) & 0xFF))/255.0 alpha:a]
 #define kIs_Inch5_5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
 #endif
 
+
+/** app主题色 */
+#define kAppColor kColorFromHex(0x32AF7A)
+
 #endif /* TUUIMacro_h */

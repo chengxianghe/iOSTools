@@ -212,14 +212,14 @@ TU_EXTERN_C_BEGIN
 
 // local
 #define kLocalizedString(_S_, _T_, ...) NSLocalizedStringFromTable([NSString stringWithFormat:(_S_), ##__VA_ARGS__],[NSString stringWithFormat:(_T_), ##__VA_ARGS__],nil)
-#define kTULocalString(_S_) kLocalizedString(_S_, @"LLVRPlayerLocal")
+#define kLLLocalString(_S_) kLocalizedString(_S_, @"Localizable")
 
 // tip
 #define kTipAlert(_S_, ...)     [[[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:(_S_), ##__VA_ARGS__] delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil] show]
 
 // xib load
-#ifndef kLoad_Nib
-#define kLoad_Nib(name)  [[[NSBundle mainBundle] loadNibNamed:name owner:nil options:nil] lastObject]
+#ifndef kLoadNibNamed
+#define kLoadNibNamed(name)  [[[NSBundle mainBundle] loadNibNamed:name owner:nil options:nil] lastObject]
 #endif
 
 /* 路径信息 ===============================================================================*/
